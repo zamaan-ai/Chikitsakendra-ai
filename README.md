@@ -211,7 +211,3 @@ This is an engineering prototype. Be aware of the following before relying on it
 | `docs/PROJECT_REPORT.md` | Project report, abstract to conclusion |
 | `docs/PPT_OUTLINE.md` | 12–15 slide presentation outline |
 | `docs/VIVA_QA.md` | Oral exam questions and answers |
-
-## License
-
-Add a license file (for example MIT) before publishing.
