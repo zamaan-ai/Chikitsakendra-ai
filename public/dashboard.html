@@ -1,0 +1,4386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChikitsaKendra AI | Digital Healthcare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   RESET & BASE
+========================= */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --navy:       #04192b;
+  --navy2:      #072340;
+  --teal:       #00b4a0;
+  --teal-glow:  #00d4bc;
+  --teal-dark:  #008f7e;
+  --teal-soft:  #e6faf8;
+  --green:      #10b981;
+  --green-soft: #d1fae5;
+  --red:        #ef4444;
+  --red-soft:   #fee2e2;
+  --orange:     #f59e0b;
+  --orange-soft:#fef3c7;
+  --blue:       #3b82f6;
+  --blue-soft:  #dbeafe;
+  --purple:     #8b5cf6;
+  --purple-soft:#ede9fe;
+  --bg:         #f0f7f6;
+  --white:      #ffffff;
+  --text:       #0f2d3d;
+  --text-2:     #2d5567;
+  --muted:      #6b8d99;
+  --border:     #d4e8e5;
+  --border-2:   #e8f4f2;
+  --shadow-sm:  0 1px 4px rgba(0,0,0,.06);
+  --shadow:     0 4px 20px rgba(0,0,0,.08);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,.12);
+  --radius-sm:  8px;
+  --radius:     14px;
+  --radius-lg:  20px;
+  --sidebar-w:  252px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea, select { font-family: inherit; }
+button { cursor: pointer; border: none; outline: none; }
+input, textarea { outline: none; }
+a { text-decoration: none; color: inherit; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  background: linear-gradient(160deg, #032033 0%, #041c2e 40%, #062840 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 14px 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 1px solid rgba(255,255,255,.04);
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 6px 26px;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #00c9b1, #009f8e);
+  border-radius: 12px;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(0,200,175,.35);
+}
+
+.brand-text h1 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+
+.brand-text h1 span { color: #3de8d2; }
+
+.brand-text p {
+  color: rgba(255,255,255,.38);
+  font-size: 9.5px;
+  margin-top: 2px;
+  font-weight: 500;
+  letter-spacing: .3px;
+}
+
+/* Nav group label */
+.nav-label {
+  color: rgba(255,255,255,.28);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  padding: 0 10px;
+  margin: 8px 0 6px;
+  text-transform: uppercase;
+}
+
+/* Nav buttons */
+.nav button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: rgba(255,255,255,.5);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin: 1px 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: all .2s ease;
+  position: relative;
+}
+
+.nav button:hover {
+  background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.85);
+}
+
+.nav button.active {
+  background: linear-gradient(90deg, rgba(0,185,165,.28), rgba(0,185,165,.14));
+  color: #3de8d2;
+  font-weight: 600;
+}
+
+.nav button.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 60%;
+  background: #3de8d2;
+  border-radius: 0 2px 2px 0;
+}
+
+.nav-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(255,255,255,.06);
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+
+.nav button.active .nav-icon,
+.nav button:hover .nav-icon {
+  background: rgba(61,232,210,.15);
+}
+
+/* Emergency box */
+.emergency {
+  margin-top: auto;
+  background: linear-gradient(135deg, rgba(239,68,68,.18), rgba(239,68,68,.10));
+  border: 1px solid rgba(239,68,68,.3);
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 10px;
+  line-height: 1.6;
+  color: rgba(255,220,220,.8);
+}
+
+.emergency strong {
+  display: block;
+  color: #fca5a5;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.emergency-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  color: white;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  box-shadow: 0 4px 12px rgba(239,68,68,.3);
+  transition: all .2s;
+}
+
+.emergency-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(239,68,68,.4);
+}
+
+/* Security badge */
+.security-badge {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 9.5px;
+  color: rgba(255,255,255,.38);
+}
+
+.security-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar {
+  height: 64px;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-2);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 12px rgba(0,0,0,.04);
+}
+
+/* Search */
+.search-wrap {
+  position: relative;
+  width: 340px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.search {
+  width: 100%;
+  height: 38px;
+  background: var(--teal-soft);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 0 14px 0 36px;
+  font-size: 12px;
+  color: var(--text);
+  transition: all .2s;
+}
+
+.search::placeholder { color: var(--muted); }
+
+.search:focus {
+  border-color: var(--teal);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0,180,160,.12);
+}
+
+.spacer { flex: 1; }
+
+/* Language switcher */
+.lang-group {
+  display: flex;
+  gap: 2px;
+  background: var(--teal-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.lang-group button {
+  padding: 5px 11px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  transition: all .2s;
+}
+
+.lang-group button.active {
+  background: var(--teal);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,180,160,.3);
+}
+
+/* Notification bell */
+.notif-btn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: var(--teal-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 16px;
+  position: relative;
+  transition: all .2s;
+}
+
+.notif-btn:hover {
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.notif-dot {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 7px; height: 7px;
+  background: var(--red);
+  border-radius: 50%;
+  border: 1.5px solid white;
+}
+
+/* User avatar / hospital info */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-left: 1px solid var(--border);
+  padding-left: 14px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-meta { text-align: right; }
+
+.user-meta strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.user-meta small {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+
+/* =========================
+   CONTENT AREA
+========================= */
+
+.content {
+  padding: 22px;
+  flex: 1;
+}
+
+/* Page transitions */
+.page { display: none; }
+
+.page.active {
+  display: block;
+  animation: pageIn .3s ease;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =========================
+   DASHBOARD HERO GRID
+========================= */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.65fr .72fr .72fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+
+/* Hero main card */
+.hero-main {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #e9fdf9 0%, #f7fffd 55%, #ffffff 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* decorative blobs */
+.hero-main::before {
+  content: '';
+  position: absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,212,188,.15) 0%, transparent 70%);
+  right: -80px; top: -100px;
+  pointer-events: none;
+}
+
+.hero-main::after {
+  content: '';
+  position: absolute;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,180,160,.10) 0%, transparent 70%);
+  right: 120px; bottom: -60px;
+  pointer-events: none;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--teal-dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  background: rgba(0,180,160,.1);
+  border: 1px solid rgba(0,180,160,.2);
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.hero-main h2 {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 14px 0 8px;
+  color: var(--navy);
+  letter-spacing: -.5px;
+}
+
+.hero-main h2 em {
+  font-style: normal;
+  color: var(--teal-dark);
+}
+
+.hero-main > p {
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.75;
+}
+
+/* Voice area */
+.voice-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.mic-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: white;
+  font-size: 22px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 8px rgba(0,180,160,.15), 0 8px 24px rgba(0,180,160,.35);
+  transition: all .3s ease;
+  flex-shrink: 0;
+}
+
+.mic-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 12px rgba(0,180,160,.12), 0 12px 32px rgba(0,180,160,.4);
+}
+
+.mic-btn.listening {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 8px rgba(0,180,160,.15), 0 8px 24px rgba(0,180,160,.35); }
+  50% { box-shadow: 0 0 0 16px rgba(0,180,160,.08), 0 8px 24px rgba(0,180,160,.35); }
+}
+
+.voice-meta b {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.voice-meta small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* Animated wave */
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 28px;
+}
+
+.wave span {
+  width: 3px;
+  background: linear-gradient(180deg, var(--teal-glow), var(--teal-dark));
+  border-radius: 99px;
+  animation: waveBar 1.1s ease-in-out infinite;
+}
+
+.wave span:nth-child(1) { height: 8px; }
+.wave span:nth-child(2) { height: 18px; animation-delay: .1s; }
+.wave span:nth-child(3) { height: 28px; animation-delay: .2s; }
+.wave span:nth-child(4) { height: 14px; animation-delay: .3s; }
+.wave span:nth-child(5) { height: 22px; animation-delay: .4s; }
+.wave span:nth-child(6) { height: 10px; animation-delay: .5s; }
+
+@keyframes waveBar {
+  50% { transform: scaleY(.3); opacity: .4; }
+}
+
+/* Feature chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 5px 12px;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-2);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+
+/* =========================
+   PROGRESS RING CARD
+========================= */
+
+.progress-ring-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto;
+}
+
+.progress-ring-wrap svg {
+  transform: rotate(-90deg);
+  width: 84px; height: 84px;
+}
+
+.ring-bg { fill: none; stroke: #e8f4f2; stroke-width: 7; }
+
+.ring-fill {
+  fill: none;
+  stroke: url(#ringGrad);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 226;
+  stroke-dashoffset: 136;
+  transition: stroke-dashoffset .8s ease;
+}
+
+.ring-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--teal-dark);
+}
+
+.progress-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.steps-list { margin-top: 16px; display: flex; flex-direction: column; gap: 2px; }
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: background .2s;
+}
+
+.step:hover { background: var(--teal-soft); }
+
+.step-num {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: #eef5f3;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.step.done { color: var(--text); }
+.step.done .step-num { background: var(--teal); color: white; }
+.step.active-step .step-num { background: var(--orange-soft); color: var(--orange); }
+
+.step-status {
+  margin-left: auto;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.step.done .step-status { color: var(--green); }
+.step.active-step .step-status { color: var(--orange); }
+
+
+/* =========================
+   CONSENT CARD
+========================= */
+
+.consent-card {
+  background: linear-gradient(160deg, #f0fdf9, #ffffff);
+  border: 1px solid rgba(0,185,165,.2);
+}
+
+.lock-icon {
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  color: var(--green);
+  border-radius: 10px;
+  font-size: 17px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(16,185,129,.2);
+}
+
+.consent-card h3 { font-size: 14px; font-weight: 700; }
+
+.consent-card p {
+  font-size: 10px;
+  color: var(--muted);
+  margin: 4px 0 14px;
+}
+
+.consent-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 10.5px;
+  color: var(--text-2);
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.consent-check {
+  width: 16px; height: 16px;
+  background: var(--green-soft);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  font-size: 9px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.agree-btn {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+  color: white;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 14px;
+  box-shadow: 0 4px 14px rgba(0,180,160,.3);
+  transition: all .25s;
+}
+
+.agree-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,180,160,.4);
+}
+
+
+/* =========================
+   SECTION WRAPPER
+========================= */
+
+.section {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  margin-top: 14px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.section-head h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.section-head p {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* Tags / badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  white-space: nowrap;
+}
+
+.badge-teal { background: rgba(0,180,160,.12); color: var(--teal-dark); border: 1px solid rgba(0,180,160,.2); }
+.badge-green { background: var(--green-soft); color: var(--green); }
+.badge-orange { background: var(--orange-soft); color: var(--orange); }
+.badge-blue { background: var(--blue-soft); color: var(--blue); }
+.badge-purple { background: var(--purple-soft); color: var(--purple); }
+.badge-red { background: var(--red-soft); color: var(--red); }
+
+
+/* =========================
+   HEALTH CARDS GRID
+========================= */
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.health-card {
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--radius);
+  padding: 14px;
+  background: white;
+  transition: all .25s ease;
+  cursor: pointer;
+}
+
+.health-card:hover {
+  border-color: rgba(0,180,160,.35);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,180,160,.14);
+}
+
+.health-icon {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: var(--teal-soft);
+  font-size: 17px;
+  margin-bottom: 10px;
+  transition: background .2s;
+}
+
+.health-card:hover .health-icon { background: rgba(0,180,160,.15); }
+
+.health-card h4 {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.health-card p {
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--teal-dark);
+  border-radius: 7px;
+  padding: 5px 9px;
+  font-size: 9.5px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.add-btn:hover {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+}
+
+
+/* =========================
+   LOWER GRID
+========================= */
+
+.lower-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr .9fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+
+/* =========================
+   UPLOAD BOX
+========================= */
+
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .25s;
+}
+
+.upload-zone:hover {
+  border-color: var(--teal);
+  background: var(--teal-soft);
+  color: var(--teal-dark);
+}
+
+.upload-icon {
+  font-size: 32px;
+  color: var(--teal);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.upload-zone small {
+  display: block;
+  margin-top: 4px;
+  font-size: 9.5px;
+  color: #aac4be;
+}
+
+.upload-zone .choose-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 7px 16px;
+  background: var(--teal-soft);
+  border: 1.5px solid var(--border);
+  color: var(--teal-dark);
+  border-radius: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.upload-zone:hover .choose-btn {
+  background: white;
+}
+
+/* File list items */
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--border-2);
+  font-size: 11px;
+}
+
+.file-item:last-child { border-bottom: none; }
+
+.file-type-icon {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 8px;
+  background: var(--red-soft);
+  color: var(--red);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.file-item b { font-size: 11px; font-weight: 600; }
+.file-item small { display: block; color: var(--muted); font-size: 9.5px; margin-top: 2px; }
+
+.file-status-icon {
+  margin-left: auto;
+  color: var(--green);
+  font-size: 14px;
+}
+
+
+/* =========================
+   SUMMARY TABLE
+========================= */
+
+.summary-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-2);
+  font-size: 11px;
+  gap: 12px;
+  align-items: start;
+}
+
+.summary-row:last-child { border-bottom: none; }
+
+.summary-row b {
+  color: var(--teal-dark);
+  font-weight: 600;
+  font-size: 10.5px;
+  padding-top: 1px;
+}
+
+.summary-row span {
+  color: var(--text-2);
+  line-height: 1.55;
+  font-size: 11px;
+}
+
+.confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: var(--green-soft);
+  color: var(--green);
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ai-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--orange-soft);
+  border: 1px solid rgba(245,158,11,.25);
+  color: #92400e;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-top: 12px;
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+.action-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1.5px solid var(--border);
+  background: white;
+  color: var(--text-2);
+  padding: 9px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.action-btn:hover {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+  color: var(--teal-dark);
+}
+
+.action-btn.primary {
+  background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 14px rgba(0,180,160,.3);
+}
+
+.action-btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,180,160,.4);
+  background: linear-gradient(90deg, var(--teal-glow), var(--teal));
+  color: white;
+}
+
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline { position: relative; }
+
+.tl-event {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 18px;
+  position: relative;
+}
+
+.tl-dot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tl-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+  margin-top: 3px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 3px rgba(0,180,160,.2);
+}
+
+.tl-line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(180deg, var(--border), transparent);
+  margin-top: 4px;
+}
+
+.tl-event:last-child .tl-line { display: none; }
+
+.tl-body b { font-size: 11px; font-weight: 600; }
+.tl-body p { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+
+/* =========================
+   STATS BAR
+========================= */
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s;
+}
+
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+}
+
+.stat-card.c-teal::before { background: linear-gradient(90deg, var(--teal), var(--teal-glow)); }
+.stat-card.c-green::before { background: linear-gradient(90deg, #10b981, #34d399); }
+.stat-card.c-blue::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.stat-card.c-orange::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.stat-card.c-purple::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+
+.stat-card label {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.stat-card .stat-val {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 4px 0;
+  letter-spacing: -.5px;
+}
+
+.stat-card .stat-note {
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   SUB-PAGE HEADER
+========================= */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.page-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -.5px;
+}
+
+.page-header p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+
+/* =========================
+   INTAKE FORM
+========================= */
+
+.form-card {
+  max-width: 860px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  box-shadow: var(--shadow);
+}
+
+.question-tag {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--teal-dark);
+  background: rgba(0,180,160,.1);
+  border: 1px solid rgba(0,180,160,.2);
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-bottom: 12px;
+}
+
+.form-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 5px;
+  letter-spacing: -.3px;
+}
+
+.form-card > p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 140px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  resize: vertical;
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg);
+  transition: all .2s;
+  line-height: 1.6;
+}
+
+textarea:focus {
+  border-color: var(--teal);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0,180,160,.12);
+}
+
+textarea::placeholder { color: var(--muted); }
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mic-sm {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: white;
+  font-size: 18px;
+  display: grid; place-items: center;
+  box-shadow: 0 4px 14px rgba(0,180,160,.3);
+  transition: all .2s;
+  flex-shrink: 0;
+}
+
+.mic-sm:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0,180,160,.4);
+}
+
+.voice-status {
+  font-size: 10.5px;
+  color: var(--muted);
+}
+
+
+/* =========================
+   DOCTOR DASHBOARD
+========================= */
+
+.doctor-grid {
+  display: grid;
+  grid-template-columns: 1.3fr .8fr;
+  gap: 14px;
+}
+
+.patient-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border-2);
+}
+
+.patient-row:last-child { border-bottom: none; }
+
+.patient-info-wrap {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.avatar {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, #e0f7f4, #c5efea);
+  color: var(--teal-dark);
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.patient-row b { font-size: 11.5px; font-weight: 600; }
+.patient-row small { display: block; color: var(--muted); font-size: 9.5px; margin-top: 2px; }
+
+/* Review checklist */
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: var(--text-2);
+  margin: 9px 0;
+}
+
+.check-icon {
+  width: 18px; height: 18px;
+  border-radius: 5px;
+  display: grid; place-items: center;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   DOCTOR LOGIN
+========================= */
+
+.doc-login-wrap {
+  display: flex;
+  gap: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  max-width: 820px;
+  margin-bottom: 20px;
+}
+
+/* Left branding panel */
+.doc-login-brand {
+  width: 300px;
+  flex-shrink: 0;
+  background: linear-gradient(155deg, #032033 0%, #041c2e 45%, #073347 100%);
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.doc-login-brand::before {
+  content: '';
+  position: absolute;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,180,160,.22) 0%, transparent 70%);
+  right: -80px; bottom: -60px;
+  pointer-events: none;
+}
+
+.doc-login-brand::after {
+  content: '';
+  position: absolute;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,212,188,.15) 0%, transparent 70%);
+  left: -30px; top: 40px;
+  pointer-events: none;
+}
+
+.doc-brand-logo {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, #00c9b1, #008f7e);
+  border-radius: 14px;
+  display: grid; place-items: center;
+  font-size: 22px;
+  box-shadow: 0 8px 24px rgba(0,200,175,.35);
+  margin-bottom: 22px;
+}
+
+.doc-login-brand h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.25;
+  letter-spacing: -.4px;
+  margin-bottom: 8px;
+}
+
+.doc-login-brand h2 em {
+  font-style: normal;
+  color: #3de8d2;
+}
+
+.doc-login-brand p {
+  font-size: 11px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+.doc-feature-list { display: flex; flex-direction: column; gap: 10px; }
+
+.doc-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10.5px;
+  color: rgba(255,255,255,.55);
+}
+
+.doc-feature-icon {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.08);
+  display: grid; place-items: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.doc-access-note {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9.5px;
+  color: rgba(255,255,255,.3);
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* Right form panel */
+.doc-login-form {
+  flex: 1;
+  background: white;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-login-form h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -.3px;
+  margin-bottom: 4px;
+}
+
+.doc-login-form > p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+/* Role selector pills */
+.role-pills {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.role-pill {
+  flex: 1;
+  padding: 8px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s;
+  text-align: center;
+}
+
+.role-pill:hover {
+  border-color: var(--teal);
+  color: var(--teal-dark);
+  background: var(--teal-soft);
+}
+
+.role-pill.active {
+  border-color: var(--teal);
+  background: var(--teal-soft);
+  color: var(--teal-dark);
+  box-shadow: 0 0 0 3px rgba(0,180,160,.1);
+}
+
+/* Input group */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.input-field-wrap {
+  position: relative;
+}
+
+.input-field-icon {
+  position: absolute;
+  left: 13px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.doc-input {
+  width: 100%;
+  padding: 11px 14px 11px 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--bg);
+  transition: all .2s;
+}
+
+.doc-input::placeholder { color: #aac4be; }
+
+.doc-input:focus {
+  border-color: var(--teal);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0,180,160,.12);
+  outline: none;
+}
+
+/* Forgot link */
+.form-meta {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
+
+.forgot-link {
+  font-size: 10.5px;
+  color: var(--teal-dark);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.forgot-link:hover { text-decoration: underline; }
+
+/* Sign in button */
+.signin-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+  color: white;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  box-shadow: 0 6px 20px rgba(0,180,160,.35);
+  transition: all .25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.signin-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,.1), transparent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.signin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(0,180,160,.45);
+}
+
+.signin-btn:hover::before { opacity: 1; }
+
+.signin-btn:active { transform: translateY(0); }
+
+/* Error message */
+.login-error {
+  color: var(--red);
+  font-size: 10.5px;
+  margin-top: 10px;
+  min-height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Recent doctors avatars */
+.recent-doctors {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-2);
+}
+
+.recent-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.doctor-avatars {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.doc-avatar {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform .2s;
+  position: relative;
+}
+
+.doc-avatar:hover { transform: scale(1.1); }
+
+.doc-avatar-count {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  border: 1.5px dashed var(--border);
+  background: var(--bg);
+  display: grid; place-items: center;
+  font-size: 9.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ---- Logged-in queue panel ---- */
+.doc-queue-wrap {
+  display: none;
+  gap: 16px;
+}
+
+.doc-queue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.doc-profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--teal-soft);
+  border: 1px solid rgba(0,180,160,.2);
+  border-radius: 99px;
+  padding: 6px 14px 6px 6px;
+}
+
+.doc-profile-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color: white;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 700;
+}
+
+.doc-profile-pill span {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--teal-dark);
+}
+
+.signout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.signout-btn:hover {
+  background: var(--red-soft);
+  border-color: rgba(239,68,68,.3);
+  color: var(--red);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-2);
+  padding: 14px 0 4px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+  display: none;
+  position: fixed;
+  right: 22px; bottom: 22px;
+  background: var(--navy);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 16px 40px rgba(0,0,0,.25);
+  animation: toastIn .3s ease;
+  max-width: 320px;
+  border-left: 3px solid var(--teal);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark {
+  --bg:       #0d1f2d;
+  --white:    #0f2a3b;
+  --text:     #e2f0f0;
+  --text-2:   #b0cdd6;
+  --muted:    #5c8090;
+  --border:   #1e3d50;
+  --border-2: #172f40;
+  --navy:     #0a1e2d;
+  --teal-soft:#0a2535;
+  --green-soft:#0a2318;
+  --orange-soft:#251800;
+  --red-soft: #220a0a;
+  --blue-soft:#0a1530;
+  --purple-soft:#160a30;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.3);
+  --shadow:   0 4px 20px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.5);
+}
+
+body.dark .topbar {
+  background: rgba(13,31,45,.97);
+  border-bottom-color: var(--border);
+}
+
+body.dark .search {
+  background: #0f2535;
+  color: var(--text);
+}
+
+body.dark .lang-group {
+  background: #0f2535;
+  border-color: var(--border);
+}
+
+body.dark .lang-group button {
+  color: var(--muted);
+}
+
+body.dark .notif-btn,
+body.dark .user-info {
+  background: #0f2535;
+  border-color: var(--border);
+}
+
+body.dark .hero-main {
+  background: linear-gradient(135deg, #0d2535 0%, #0f2d3e 55%, #0a2030 100%);
+}
+
+body.dark .card,
+body.dark .section,
+body.dark .health-card,
+body.dark .stat-card,
+body.dark .form-card {
+  background: var(--white);
+  border-color: var(--border);
+}
+
+body.dark .summary-table { border-color: var(--border); }
+body.dark .summary-row { border-bottom-color: var(--border-2); }
+
+body.dark textarea,
+body.dark .doc-input {
+  background: #0d1f2d;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+body.dark .upload-zone {
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+body.dark .step:hover { background: #0f2535; }
+
+body.dark .doc-login-form {
+  background: #0f2a3b;
+}
+
+body.dark .doc-login-form h3 { color: var(--text); }
+
+body.dark .role-pill {
+  background: #0d1f2d;
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+body.dark .consent-card {
+  background: linear-gradient(160deg, #0a2a20, #0f2a3b);
+}
+
+body.dark .add-btn {
+  background: transparent;
+  color: var(--teal);
+  border-color: var(--border);
+}
+
+body.dark .action-btn {
+  background: #0f2535;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+body.dark .footer { border-color: var(--border-2); }
+
+body.dark .reminder-banner {
+  background: linear-gradient(90deg, #1a2d0a, #1a1f0a);
+  border-color: rgba(130,200,80,.25);
+}
+
+
+/* =========================
+   REMINDER BANNER
+========================= */
+
+.reminder-banner {
+  background: linear-gradient(90deg, #f0fdf4, #fffbeb);
+  border: 1.5px solid rgba(16,185,129,.25);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  animation: reminderSlide .4s ease;
+  transition: all .4s ease;
+}
+
+.reminder-banner.hidden {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  margin-bottom: 0;
+  max-height: 0;
+}
+
+@keyframes reminderSlide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reminder-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+
+.reminder-pulse {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(16,185,129,.5);
+  animation: remPulse 2s infinite;
+}
+
+@keyframes remPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+.reminder-text {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.reminder-text strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.reminder-text span { color: var(--muted); }
+
+.reminder-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.reminder-update-btn {
+  padding: 8px 16px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+  color: white;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(0,180,160,.3);
+  transition: all .2s;
+}
+
+.reminder-update-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(0,180,160,.4);
+}
+
+.reminder-dismiss-btn {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  transition: all .2s;
+}
+
+.reminder-dismiss-btn:hover {
+  background: rgba(0,0,0,.06);
+  color: var(--text);
+}
+
+
+/* =========================
+   MODAL OVERLAY
+========================= */
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(4,25,43,.65);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn .2s ease;
+}
+
+.modal-overlay.open { display: flex; }
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-box {
+  background: white;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,.3);
+  animation: modalSlideUp .25s ease;
+  position: relative;
+}
+
+body.dark .modal-box {
+  background: #0f2a3b;
+  border: 1px solid var(--border);
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px 0;
+  margin-bottom: 18px;
+}
+
+.modal-title-wrap { display: flex; align-items: center; gap: 12px; }
+
+.modal-icon {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.modal-icon.teal  { background: var(--teal-soft); }
+.modal-icon.green { background: var(--green-soft); }
+.modal-icon.blue  { background: var(--blue-soft); }
+.modal-icon.red   { background: var(--red-soft); }
+
+.modal-header h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.3px;
+}
+
+.modal-header p {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.modal-close {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 16px;
+  color: var(--muted);
+  background: var(--bg);
+  transition: all .2s;
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  background: var(--red-soft);
+  color: var(--red);
+}
+
+.modal-body { padding: 0 24px 24px; }
+
+/* Form fields inside modal */
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.field-row.single { grid-template-columns: 1fr; }
+
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+
+.field-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-2);
+  letter-spacing: .3px;
+}
+
+.field-input {
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--bg);
+  transition: all .2s;
+  font-family: inherit;
+}
+
+.field-input:focus {
+  border-color: var(--teal);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0,180,160,.12);
+  outline: none;
+}
+
+body.dark .field-input {
+  background: #0d1f2d;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.field-input::placeholder { color: #aac4be; }
+
+select.field-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b8d99'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+textarea.field-input {
+  min-height: 90px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+/* Chip add list */
+.tag-input-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  min-height: 46px;
+  background: var(--bg);
+  align-items: center;
+  cursor: text;
+  transition: border-color .2s;
+}
+
+.tag-input-wrap:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(0,180,160,.12);
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--teal-soft);
+  border: 1px solid rgba(0,180,160,.3);
+  color: var(--teal-dark);
+  border-radius: 99px;
+  padding: 3px 8px 3px 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.tag-chip button {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1;
+  padding: 0;
+}
+
+.tag-chip button:hover { color: var(--red); }
+
+.tag-input-field {
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  color: var(--text);
+  outline: none;
+  min-width: 100px;
+  flex: 1;
+}
+
+.modal-divider {
+  border: none;
+  border-top: 1px solid var(--border-2);
+  margin: 18px 0;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-2);
+  background: var(--bg);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+body.dark .modal-footer { background: #0a1e2d; }
+
+/* Saved indicator on health cards */
+.health-card.saved .add-btn {
+  background: var(--green-soft);
+  border-color: rgba(16,185,129,.3);
+  color: var(--green);
+}
+
+
+/* =========================
+   NOTIFICATION PANEL
+========================= */
+
+.notif-panel {
+  display: none;
+  position: fixed;
+  top: 70px; right: 16px;
+  width: 320px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 500;
+  overflow: hidden;
+  animation: toastIn .25s ease;
+}
+
+body.dark .notif-panel { background: #0f2a3b; border-color: var(--border); }
+
+.notif-panel.open { display: block; }
+
+.notif-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-2);
+}
+
+.notif-panel-header h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.mark-read-btn {
+  font-size: 10.5px;
+  color: var(--teal-dark);
+  font-weight: 600;
+  background: transparent;
+}
+
+.notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border-2);
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.notif-item:hover { background: var(--teal-soft); }
+.notif-item:last-child { border-bottom: none; }
+
+.notif-item-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.notif-item-body { flex: 1; }
+.notif-item-body b { font-size: 11.5px; font-weight: 700; color: var(--text); display: block; }
+.notif-item-body p { font-size: 10.5px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+.notif-item-time { font-size: 9.5px; color: var(--muted); white-space: nowrap; }
+
+.notif-unread-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+  .hero-grid { grid-template-columns: 1fr 1fr; }
+  .hero-main { grid-column: 1 / -1; }
+  .health-grid { grid-template-columns: repeat(3, 1fr); }
+  .lower-grid { grid-template-columns: 1fr 1fr; }
+  .stats-row { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 800px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar {
+    flex-direction: row;
+    height: auto;
+    overflow-x: auto;
+    padding: 10px;
+    position: relative;
+  }
+  .brand { min-width: 180px; padding-bottom: 0; }
+  .nav-label, .emergency, .security-badge { display: none; }
+  .nav { display: flex; }
+  .nav button span:last-child { display: none; }
+  .nav-icon { margin: 0 auto; }
+  .topbar { padding: 0 14px; height: 54px; }
+  .content { padding: 14px; }
+  .hero-grid, .lower-grid, .doctor-grid { grid-template-columns: 1fr; }
+  .lower-grid > .card { min-width: 0; }
+  .hero-main { grid-column: auto; }
+  .health-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .user-meta { display: none; }
+  .search-wrap { width: 200px; }
+}
+
+@media (max-width: 500px) {
+  .health-grid, .stats-row { grid-template-columns: 1fr; }
+  .hero-main h2 { font-size: 22px; }
+  .lang-group button { padding: 5px 8px; }
+  .user-info { display: none; }
+}
+
+@media (max-width: 320px) {
+  .search-wrap { display: none; }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- =====================
+     SIDEBAR
+===================== -->
+
+<aside class="sidebar">
+
+  <div class="brand">
+    <div class="logo">✚</div>
+    <div class="brand-text">
+      <h1>Chikitsa<span>Kendra</span></h1>
+      <p>Smart Clinical Intake</p>
+    </div>
+  </div>
+
+  <div class="nav-label">Patient Care</div>
+
+  <nav class="nav">
+
+    <button class="active" onclick="showPage('dashboard',this)">
+      <span class="nav-icon">🏠</span>
+      <span>Dashboard</span>
+    </button>
+
+    <button onclick="showPage('intake',this)">
+      <span class="nav-icon">💬</span>
+      <span>Start Intake</span>
+    </button>
+
+    <button onclick="showPage('history',this)">
+      <span class="nav-icon">📋</span>
+      <span>Patient History</span>
+    </button>
+
+    <button onclick="showPage('reports',this)">
+      <span class="nav-icon">📁</span>
+      <span>Reports</span>
+    </button>
+
+    <button onclick="showPage('summary',this)">
+      <span class="nav-icon">🤖</span>
+      <span>AI Summary</span>
+    </button>
+
+    <button onclick="showPage('doctor',this)">
+      <span class="nav-icon">🩺</span>
+      <span>Doctor Review</span>
+    </button>
+
+    <button onclick="showPage('timeline',this)">
+      <span class="nav-icon">📅</span>
+      <span>Health Timeline</span>
+    </button>
+
+  </nav>
+
+
+  <div class="emergency">
+    <strong>🚨 Medical Emergency?</strong>
+    If you are experiencing severe symptoms, seek immediate professional help.
+    <button class="emergency-btn" onclick="emergencyHelp()">
+      ☎ Emergency Help
+    </button>
+  </div>
+
+  <div class="security-badge">
+    <span class="security-icon">🔐</span>
+    <span>Your data is encrypted & secure</span>
+  </div>
+
+</aside>
+
+
+
+<!-- =====================
+     MAIN
+===================== -->
+
+<main>
+
+
+<!-- TOPBAR -->
+
+<header class="topbar">
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search" type="text" placeholder="Search patient, UHID, mobile…">
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="lang-group">
+    <button class="active" onclick="changeLanguage(this,'English')">English</button>
+    <button onclick="changeLanguage(this,'हिंदी')">हिंदी</button>
+    <button onclick="changeLanguage(this,'বাংলা')">বাংলা</button>
+  </div>
+
+  <button class="notif-btn" id="darkToggleBtn" onclick="toggleDark()" title="Toggle dark mode">
+    🌙
+  </button>
+
+  <button class="notif-btn" id="notifBtn" onclick="openReminderPanel()">
+    🔔
+    <span class="notif-dot" id="notifDot"></span>
+  </button>
+
+  <div class="user-info">
+    <div class="user-avatar">GH</div>
+    <div class="user-meta">
+      <strong>Government Hospital</strong>
+      <small>OPD · General Medicine</small>
+    </div>
+  </div>
+
+</header>
+
+
+
+<div class="content">
+
+
+<!-- =====================
+     DASHBOARD PAGE
+===================== -->
+
+<section id="dashboard" class="page active">
+
+  <!-- SVG gradient defs for ring -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00c9b1"/>
+        <stop offset="100%" stop-color="#008f7e"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+
+  <!-- REMINDER BANNER -->
+  <div class="reminder-banner" id="reminderBanner">
+    <div class="reminder-inner">
+      <span class="reminder-pulse"></span>
+      <div class="reminder-text">
+        <strong data-i18n="reminder_title">📋 Health Card Reminder</strong>
+        <span data-i18n="reminder_sub">Your checkup is approaching — please update your Vitals, Medical History, Medications & Allergies before you arrive.</span>
+      </div>
+      <div class="reminder-actions">
+        <button class="reminder-update-btn" onclick="openModal('vitalsModal')">Update Now</button>
+        <button class="reminder-dismiss-btn" onclick="dismissReminder()">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO GRID -->
+  <div class="hero-grid">
+
+
+    <!-- HERO MAIN -->
+    <div class="hero-main">
+
+      <div class="kicker">🤖 AI-Assisted Patient History · Digital Health</div>
+
+      <h2>
+        Namaste! 👋<br>
+        <em>How can I help you today?</em>
+      </h2>
+
+      <p>
+        Speak naturally in your preferred language or type your symptoms.
+        ChikitsaKendra AI organises your information into a structured
+        clinical draft, ready for professional review.
+      </p>
+
+      <div class="voice-row">
+
+        <button class="mic-btn" id="heroMic" onclick="startListening()">🎙</button>
+
+        <div class="voice-meta">
+          <b id="voiceText">Tap to Speak</b>
+          <small>Voice &amp; touch enabled · 15+ languages</small>
+        </div>
+
+        <div class="wave">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+
+      </div>
+
+      <div class="chips">
+        <div class="chip">🎙 Voice & Touch</div>
+        <div class="chip">🌐 Multilingual</div>
+        <div class="chip">🤖 AI Summary</div>
+        <div class="chip">✅ Doctor Verified</div>
+        <div class="chip">🔐 Encrypted</div>
+      </div>
+
+    </div>
+
+
+    <!-- PROGRESS CARD -->
+    <div class="card">
+
+      <div class="card-title">Your Intake Progress</div>
+
+      <div class="progress-ring-wrap">
+        <svg viewBox="0 0 84 84">
+          <circle class="ring-bg" cx="42" cy="42" r="36"/>
+          <circle class="ring-fill" cx="42" cy="42" r="36"/>
+        </svg>
+        <div class="ring-label">40%</div>
+      </div>
+
+      <div class="progress-sub">2 of 5 steps completed</div>
+
+      <div class="steps-list">
+
+        <div class="step done">
+          <div class="step-num">1</div>
+          Basic Information
+          <span class="step-status">✓ Done</span>
+        </div>
+
+        <div class="step active-step">
+          <div class="step-num">2</div>
+          Describe Symptoms
+          <span class="step-status">Active</span>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          Upload Reports
+          <span class="step-status">Pending</span>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          AI Summary
+          <span class="step-status">Pending</span>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          Doctor Review
+          <span class="step-status">Pending</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONSENT CARD -->
+    <div class="card consent-card">
+
+      <div class="lock-icon">🔒</div>
+
+      <h3>Consent &amp; Privacy</h3>
+
+      <p>Your privacy is our top priority.</p>
+
+      <div class="consent-item">
+        <div class="consent-check">✓</div>
+        I understand why my information is being collected.
+      </div>
+
+      <div class="consent-item">
+        <div class="consent-check">✓</div>
+        I consent to processing of my health data.
+      </div>
+
+      <div class="consent-item">
+        <div class="consent-check">✓</div>
+        My information will remain confidential.
+      </div>
+
+      <button class="agree-btn" onclick="giveConsent()">
+        I Agree &amp; Continue →
+      </button>
+
+    </div>
+
+
+  </div><!-- / hero-grid -->
+
+
+  <!-- HEALTH SECTIONS -->
+  <div class="section">
+
+    <div class="section-head">
+      <div>
+        <h3 data-i18n="health_title">Tell us about your health</h3>
+        <p data-i18n="health_sub">Complete the sections relevant to your consultation today.</p>
+      </div>
+      <span class="badge badge-teal">PATIENT INPUT</span>
+    </div>
+
+    <div class="health-grid">
+
+      <div class="health-card" onclick="showPage('intake')">
+        <div class="health-icon">🩺</div>
+        <h4 data-i18n="chief_complaint">Chief Complaint</h4>
+        <p data-i18n="chief_complaint_sub">What is your main problem today?</p>
+        <button class="add-btn">+ Add Details</button>
+      </div>
+
+      <div class="health-card" onclick="showPage('intake')">
+        <div class="health-icon">🤒</div>
+        <h4 data-i18n="symptoms">Symptoms</h4>
+        <p data-i18n="symptoms_sub">Select or describe your symptoms.</p>
+        <button class="add-btn">+ Add Details</button>
+      </div>
+
+      <div class="health-card" onclick="openModal('vitalsModal')">
+        <div class="health-icon">❤️</div>
+        <h4 data-i18n="vitals">Vitals</h4>
+        <p data-i18n="vitals_sub">Enter recent measurements if available.</p>
+        <button class="add-btn" id="vitalsCardBtn">+ Add Details</button>
+      </div>
+
+      <div class="health-card" onclick="openModal('historyModal')">
+        <div class="health-icon">📖</div>
+        <h4 data-i18n="med_history">Medical History</h4>
+        <p data-i18n="med_history_sub">Past illnesses and surgeries.</p>
+        <button class="add-btn" id="historyCardBtn">+ Add Details</button>
+      </div>
+
+      <div class="health-card" onclick="openModal('medsModal')">
+        <div class="health-icon">💊</div>
+        <h4 data-i18n="medications">Medications</h4>
+        <p data-i18n="medications_sub">Current medicines you take.</p>
+        <button class="add-btn" id="medsCardBtn">+ Add Details</button>
+      </div>
+
+      <div class="health-card" onclick="openModal('allergyModal')">
+        <div class="health-icon">⚠️</div>
+        <h4 data-i18n="allergies">Allergies</h4>
+        <p data-i18n="allergies_sub">Known allergies or reactions.</p>
+        <button class="add-btn" id="allergyCardBtn">+ Add Details</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- LOWER GRID -->
+  <div class="lower-grid">
+
+
+    <!-- UPLOAD -->
+    <div class="card">
+
+      <div class="section-head">
+        <div>
+          <h3>Medical Reports</h3>
+          <p>Prescriptions, labs, scans &amp; discharge summaries.</p>
+        </div>
+      </div>
+
+      <div class="upload-zone" onclick="document.getElementById('files').click()">
+        <span class="upload-icon">☁️</span>
+        Drag &amp; drop files here or click to browse
+        <small>PDF · JPG · PNG · up to 20 MB each</small>
+        <span class="choose-btn">Choose Files</span>
+        <input id="files" type="file" multiple hidden onchange="fileSelected(this)">
+        <div id="fileMessage"></div>
+      </div>
+
+      <div class="file-item">
+        <div class="file-type-icon">📄</div>
+        <div>
+          <b>Blood Test Report.pdf</b>
+          <small>2.4 MB · Uploaded</small>
+        </div>
+        <span class="file-status-icon">✅</span>
+      </div>
+
+      <div class="file-item">
+        <div class="file-type-icon">🖼</div>
+        <div>
+          <b>X-Ray Chest.jpg</b>
+          <small>1.3 MB · Uploaded</small>
+        </div>
+        <span class="file-status-icon">✅</span>
+      </div>
+
+    </div>
+
+
+    <!-- AI SUMMARY -->
+    <div class="card">
+
+      <div class="section-head">
+        <div>
+          <h3>AI Clinical Summary</h3>
+          <p>Generated from patient information.</p>
+        </div>
+        <span class="confidence-badge">🟢 78% Confidence</span>
+      </div>
+
+      <div class="summary-table">
+
+        <div class="summary-row">
+          <b>Chief Complaint</b>
+          <span id="summaryComplaint">Fever with body ache and headache since 2 days.</span>
+        </div>
+
+        <div class="summary-row">
+          <b>History</b>
+          <span>Patient reports moderate fever with fatigue. Further clinical clarification required.</span>
+        </div>
+
+        <div class="summary-row">
+          <b>AI Observation</b>
+          <span>Pattern requires professional assessment. No diagnosis is established by this interface.</span>
+        </div>
+
+        <div class="summary-row">
+          <b>Red Flags</b>
+          <span style="color:var(--green);font-weight:600;">✓ No immediate red flags entered.</span>
+        </div>
+
+        <div class="summary-row">
+          <b>Medical History</b>
+          <span>Pending verification.</span>
+        </div>
+
+        <div class="summary-row">
+          <b>Medications</b>
+          <span>To be verified by physician.</span>
+        </div>
+
+      </div>
+
+      <div class="ai-warning">
+        ⚠️ This AI-generated summary must be reviewed and verified by a qualified healthcare professional before clinical use.
+      </div>
+
+      <div class="action-row">
+        <button class="action-btn" onclick="printSummary()">⬇ Download</button>
+        <button class="action-btn" onclick="printSummary()">🖨 Print</button>
+        <button class="action-btn primary" onclick="showPage('doctor')">Send to Doctor →</button>
+      </div>
+
+    </div>
+
+
+    <!-- TIMELINE -->
+    <div class="card">
+
+      <div class="section-head">
+        <div>
+          <h3>Health Timeline</h3>
+          <p>Patient record journey</p>
+        </div>
+        <span class="badge badge-teal">VIEW ALL</span>
+      </div>
+
+      <div class="timeline">
+
+        <div class="tl-event">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-body">
+            <b>Blood Test</b>
+            <p>Complete Blood Count · 2023</p>
+          </div>
+        </div>
+
+        <div class="tl-event">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-body">
+            <b>Consultation</b>
+            <p>General Medicine · 2023</p>
+          </div>
+        </div>
+
+        <div class="tl-event">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-body">
+            <b>X-Ray</b>
+            <p>Chest X-Ray · 2024</p>
+          </div>
+        </div>
+
+        <div class="tl-event">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-body">
+            <b>Prescription</b>
+            <p>Medication record · 2024</p>
+          </div>
+        </div>
+
+        <div class="tl-event">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot" style="background:var(--orange);box-shadow:0 0 0 3px rgba(245,158,11,.2)"></div>
+          </div>
+          <div class="tl-body">
+            <b>Current Intake</b>
+            <p>In progress · Today</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div><!-- / lower-grid -->
+
+
+  <!-- STATS -->
+  <div class="stats-row">
+
+    <div class="stat-card c-teal">
+      <label>Intake Completion</label>
+      <strong class="stat-val">40%</strong>
+      <small class="stat-note" style="color:var(--teal)">Keep going!</small>
+    </div>
+
+    <div class="stat-card c-blue">
+      <label>Reports Uploaded</label>
+      <strong class="stat-val">2</strong>
+      <small class="stat-note" style="color:var(--blue)">Documents</small>
+    </div>
+
+    <div class="stat-card c-purple">
+      <label>Information Captured</label>
+      <strong class="stat-val">65%</strong>
+      <small class="stat-note" style="color:var(--purple)">Good progress</small>
+    </div>
+
+    <div class="stat-card c-orange">
+      <label>AI Confidence</label>
+      <strong class="stat-val">78%</strong>
+      <small class="stat-note" style="color:var(--orange)">Moderate</small>
+    </div>
+
+    <div class="stat-card c-green">
+      <label>Review Status</label>
+      <strong class="stat-val" style="font-size:16px">Pending</strong>
+      <small class="stat-note" style="color:var(--green)">With Doctor</small>
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© 2026 ChikitsaKendra AI · Smart Clinical Intake Assistant</span>
+    <span>🔐 Privacy · Consent · Human-in-the-loop</span>
+  </footer>
+
+
+</section>
+
+
+
+<!-- =====================
+     INTAKE PAGE
+===================== -->
+
+<section id="intake" class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>AI Patient Intake</h2>
+      <p>Conversational history-taking with multilingual voice support.</p>
+    </div>
+    <span class="badge badge-orange">STEP 2 · IN PROGRESS</span>
+  </div>
+
+  <div class="form-card">
+
+    <div class="question-tag">QUESTION 01</div>
+
+    <h3>What is your main problem today?</h3>
+
+    <p>Tell us in your own words — or tap the microphone to speak.</p>
+
+    <textarea
+      id="symptom"
+      placeholder="Example: I have had fever and headache for two days…">
+    </textarea>
+
+    <div class="form-footer">
+      <button class="mic-sm" onclick="voiceInput()">🎙</button>
+      <span id="voiceStatus" class="voice-status">Tap microphone to speak</span>
+    </div>
+
+    <button
+      class="action-btn primary"
+      style="margin-top:18px;max-width:220px"
+      onclick="saveSymptom()">
+      Save &amp; Continue →
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================
+     HISTORY PAGE
+===================== -->
+
+<section id="history" class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>Patient History</h2>
+      <p>Structured information collected during intake.</p>
+    </div>
+    <span class="badge badge-teal">PATIENT RECORD</span>
+  </div>
+
+  <div class="section">
+    <div class="health-grid">
+
+      <div class="health-card">
+        <div class="health-icon">🩺</div>
+        <h4>Chief Complaint</h4>
+        <p id="historyComplaint">Fever with body ache and headache.</p>
+      </div>
+
+      <div class="health-card">
+        <div class="health-icon">🤒</div>
+        <h4>Symptoms</h4>
+        <p>Fever, headache, body ache.</p>
+      </div>
+
+      <div class="health-card">
+        <div class="health-icon">❤️</div>
+        <h4>Vitals</h4>
+        <p>Not entered.</p>
+      </div>
+
+      <div class="health-card">
+        <div class="health-icon">📖</div>
+        <h4>Medical History</h4>
+        <p>Awaiting confirmation.</p>
+      </div>
+
+      <div class="health-card">
+        <div class="health-icon">💊</div>
+        <h4>Medications</h4>
+        <p>To be verified.</p>
+      </div>
+
+      <div class="health-card">
+        <div class="health-icon">⚠️</div>
+        <h4>Allergies</h4>
+        <p>To be confirmed.</p>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+
+<!-- =====================
+     REPORTS PAGE
+===================== -->
+
+<section id="reports" class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>Medical Report Vault</h2>
+      <p>Upload and organise previous reports.</p>
+    </div>
+    <span class="badge badge-blue">STEP 3 · DOCUMENTS</span>
+  </div>
+
+  <div class="card">
+
+    <div class="upload-zone" style="padding:50px" onclick="document.getElementById('reportsInput').click()">
+      <span class="upload-icon">☁️</span>
+      <b style="font-size:13px">Drag &amp; drop medical reports here</b>
+      <br>
+      <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block">or browse from your device</span>
+      <small>PDF · JPG · PNG · Max 20 MB each</small>
+      <input id="reportsInput" type="file" multiple hidden onchange="fileSelected(this)">
+      <span class="choose-btn" style="margin-top:16px">Choose Files</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================
+     SUMMARY PAGE
+===================== -->
+
+<section id="summary" class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>AI Clinical Summary</h2>
+      <p>Human-reviewable clinical draft generated from patient input.</p>
+    </div>
+    <span class="confidence-badge">🟢 78% Confidence</span>
+  </div>
+
+  <div class="card">
+
+    <div class="summary-table">
+
+      <div class="summary-row">
+        <b>Chief Complaint</b>
+        <span id="fullComplaint">Fever with body ache and headache.</span>
+      </div>
+
+      <div class="summary-row">
+        <b>History</b>
+        <span>Patient-provided history requires professional clarification.</span>
+      </div>
+
+      <div class="summary-row">
+        <b>Symptoms</b>
+        <span>Patient-entered symptoms pending structured review.</span>
+      </div>
+
+      <div class="summary-row">
+        <b>Vitals</b>
+        <span>Not available.</span>
+      </div>
+
+      <div class="summary-row">
+        <b>Medical History</b>
+        <span>Pending verification.</span>
+      </div>
+
+      <div class="summary-row">
+        <b>Medications &amp; Allergies</b>
+        <span>Must be confirmed by clinician.</span>
+      </div>
+
+    </div>
+
+    <div class="ai-warning">
+      ⚠️ AI output is workflow support only and must not be treated as a diagnosis. All findings require clinician review.
+    </div>
+
+    <div class="action-row">
+      <button class="action-btn" onclick="printSummary()">⬇ Download</button>
+      <button class="action-btn" onclick="printSummary()">🖨 Print</button>
+      <button class="action-btn primary" onclick="showPage('doctor')">Send to Doctor Review →</button>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================
+     DOCTOR PAGE
+===================== -->
+
+<section id="doctor" class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>Doctor Review Center</h2>
+      <p>Human-in-the-loop review of AI-generated clinical drafts.</p>
+    </div>
+    <span class="badge badge-purple">CLINICIAN VIEW</span>
+  </div>
+
+
+  <!-- ── LOGIN CARD (shown when not authenticated) ── -->
+  <div class="doc-login-wrap" id="doctorAuthGate">
+
+    <!-- Left brand panel -->
+    <div class="doc-login-brand">
+
+      <div class="doc-brand-logo">✚</div>
+
+      <h2>Clinician<br><em>Access Portal</em></h2>
+
+      <p>Secure sign-in for doctors and admin staff to review AI-generated patient summaries.</p>
+
+      <div class="doc-feature-list">
+        <div class="doc-feature">
+          <div class="doc-feature-icon">🤖</div>
+          Review AI clinical drafts
+        </div>
+        <div class="doc-feature">
+          <div class="doc-feature-icon">📋</div>
+          Manage patient queue
+        </div>
+        <div class="doc-feature">
+          <div class="doc-feature-icon">✅</div>
+          Approve / reject summaries
+        </div>
+        <div class="doc-feature">
+          <div class="doc-feature-icon">📊</div>
+          View intake analytics
+        </div>
+      </div>
+
+      <div class="doc-access-note">
+        🔐 Staff accounts provisioned by admin only
+      </div>
+
+    </div>
+
+    <!-- Right form panel -->
+    <div class="doc-login-form">
+
+      <h3>Welcome back, Doctor</h3>
+      <p>Sign in to access the review dashboard.</p>
+
+      <!-- Role selector -->
+      <div class="role-pills">
+        <button class="role-pill active" onclick="selectRole(this,'doctor')">🩺 Doctor</button>
+        <button class="role-pill" onclick="selectRole(this,'admin')">🛡 Admin</button>
+        <button class="role-pill" onclick="selectRole(this,'nurse')">👩‍⚕️ Nurse</button>
+      </div>
+
+      <!-- Inputs -->
+      <div class="input-group">
+        <div class="input-field-wrap">
+          <span class="input-field-icon">👤</span>
+          <input id="staffUsername" type="text" class="doc-input" placeholder="Username or Staff ID"
+                 onkeydown="if(event.key==='Enter')window.staffLogin()">
+        </div>
+        <div class="input-field-wrap">
+          <span class="input-field-icon">🔑</span>
+          <input id="staffPassword" type="password" class="doc-input" placeholder="Password"
+                 onkeydown="if(event.key==='Enter')window.staffLogin()">
+        </div>
+      </div>
+
+      <div class="form-meta">
+        <span class="forgot-link" onclick="toast('Contact your administrator to reset your password.')">Forgot password?</span>
+      </div>
+
+      <button class="signin-btn" onclick="window.staffLogin()">
+        Sign in to Review Center →
+      </button>
+
+      <p id="staffLoginError" class="login-error"></p>
+
+      <!-- Recent staff avatars -->
+      <div class="recent-doctors">
+        <div class="recent-label">Recent Staff</div>
+        <div class="doctor-avatars">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#00b4a0,#008f7e)" title="Dr. R. Sharma"
+               onclick="document.getElementById('staffUsername').value='rsharma'">RS</div>
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#3b82f6,#2563eb)" title="Dr. K. Mehta"
+               onclick="document.getElementById('staffUsername').value='kmehta'">KM</div>
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)" title="Dr. A. Patel"
+               onclick="document.getElementById('staffUsername').value='apatel'">AP</div>
+          <div class="doc-avatar-count">+4</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /doc-login-wrap -->
+
+
+  <!-- ── LOGGED-IN QUEUE (shown after auth) ── -->
+  <div id="doctorLiveQueue" style="display:none;">
+
+    <!-- Logged-in header bar -->
+    <div class="card" style="margin-bottom:16px;padding:14px 20px;">
+      <div class="doc-queue-header">
+        <div class="doc-profile-pill">
+          <div class="doc-profile-avatar" id="docProfileInitials">DR</div>
+          <span id="docProfileName">Doctor</span>
+          <span class="badge badge-teal" style="margin-left:4px;">Online</span>
+        </div>
+        <button class="signout-btn" onclick="window.staffLogout()">
+          ↩ Sign out
+        </button>
+      </div>
+    </div>
+
+    <div id="doctorLiveQueueBody"></div>
+
+    <div class="card" style="margin-top:20px;">
+      <div class="card-title">Clinician Review Protocol &amp; Checklist</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px;">
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          Patient chief complaint &amp; duration verified
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          Vital signs &amp; physiological indicators checked
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          Attached lab reports &amp; diagnostic scans reviewed
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          Recorded patient audio voice symptoms consulted
+        </div>
+      </div>
+      <div class="ai-warning" style="margin-top:16px">
+        ⚠️ Doctor verification and sign-off is mandatory before an AI summary enters the official clinical record.
+      </div>
+    </div>
+
+  </div><!-- /doctorLiveQueue -->
+
+</section>
+
+
+
+<!-- =====================
+     TIMELINE PAGE
+===================== -->
+
+<section id="timeline" class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>Health Timeline</h2>
+      <p>Chronological view of consultations and health records.</p>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="timeline">
+
+      <div class="tl-event">
+        <div class="tl-dot-wrap">
+          <div class="tl-dot"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <b>Blood Test</b>
+          <p>Complete Blood Count · 2023</p>
+        </div>
+      </div>
+
+      <div class="tl-event">
+        <div class="tl-dot-wrap">
+          <div class="tl-dot"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <b>Consultation</b>
+          <p>General Medicine · 2023</p>
+        </div>
+      </div>
+
+      <div class="tl-event">
+        <div class="tl-dot-wrap">
+          <div class="tl-dot"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <b>X-Ray</b>
+          <p>Chest X-Ray · 2024</p>
+        </div>
+      </div>
+
+      <div class="tl-event">
+        <div class="tl-dot-wrap">
+          <div class="tl-dot"></div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-body">
+          <b>Prescription</b>
+          <p>Medication record · 2024</p>
+        </div>
+      </div>
+
+      <div class="tl-event">
+        <div class="tl-dot-wrap">
+          <div class="tl-dot" style="background:var(--orange);box-shadow:0 0 0 3px rgba(245,158,11,.2)"></div>
+        </div>
+        <div class="tl-body">
+          <b>Current Intake</b>
+          <p>In progress · Today</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</div><!-- /content -->
+</main>
+</div><!-- /app -->
+
+
+<!-- TOAST -->
+<!-- =====================
+     VITALS MODAL
+===================== -->
+<div class="modal-overlay" id="vitalsModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-icon teal">❤️</div>
+        <div>
+          <h3>Vitals</h3>
+          <p>Enter your latest measurements</p>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('vitalsModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">TEMPERATURE</label>
+          <input id="v_temp" class="field-input" type="text" placeholder="e.g. 98.6°F or 37°C">
+        </div>
+        <div class="field-group">
+          <label class="field-label">BLOOD PRESSURE</label>
+          <input id="v_bp" class="field-input" type="text" placeholder="e.g. 120/80 mmHg">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">HEART RATE</label>
+          <input id="v_hr" class="field-input" type="text" placeholder="e.g. 72 bpm">
+        </div>
+        <div class="field-group">
+          <label class="field-label">OXYGEN SATURATION (SpO₂)</label>
+          <input id="v_spo2" class="field-input" type="text" placeholder="e.g. 98%">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">WEIGHT</label>
+          <input id="v_weight" class="field-input" type="text" placeholder="e.g. 70 kg">
+        </div>
+        <div class="field-group">
+          <label class="field-label">HEIGHT</label>
+          <input id="v_height" class="field-input" type="text" placeholder="e.g. 170 cm">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">BLOOD GLUCOSE</label>
+          <input id="v_glucose" class="field-input" type="text" placeholder="e.g. 95 mg/dL (fasting)">
+        </div>
+        <div class="field-group">
+          <label class="field-label">MEASURED DATE</label>
+          <input id="v_date" class="field-input" type="date">
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">ADDITIONAL NOTES</label>
+          <textarea id="v_notes" class="field-input" placeholder="Any other observations…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" onclick="closeModal('vitalsModal')">Cancel</button>
+      <button class="action-btn primary" onclick="saveVitals()">Save Vitals ✓</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =====================
+     MEDICAL HISTORY MODAL
+===================== -->
+<div class="modal-overlay" id="historyModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-icon green">📖</div>
+        <div>
+          <h3>Medical History</h3>
+          <p>Past illnesses, surgeries &amp; family history</p>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('historyModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">PAST ILLNESSES</label>
+          <textarea id="h_illness" class="field-input" placeholder="e.g. Diabetes (2018), Hypertension (2020)…"></textarea>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">PAST SURGERIES / PROCEDURES</label>
+          <textarea id="h_surgery" class="field-input" placeholder="e.g. Appendectomy (2015), Knee surgery (2019)…"></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">CHRONIC CONDITIONS</label>
+          <select id="h_chronic" class="field-input" multiple size="4">
+            <option>Diabetes</option>
+            <option>Hypertension</option>
+            <option>Asthma</option>
+            <option>Heart Disease</option>
+            <option>Thyroid Disorder</option>
+            <option>Kidney Disease</option>
+            <option>Liver Disease</option>
+            <option>Epilepsy</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">FAMILY HISTORY</label>
+          <textarea id="h_family" class="field-input" placeholder="e.g. Father: Diabetes, Mother: Hypertension…"></textarea>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">SMOKING STATUS</label>
+          <select id="h_smoke" class="field-input">
+            <option value="">Select…</option>
+            <option>Never</option>
+            <option>Former (quit)</option>
+            <option>Current smoker</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">ALCOHOL</label>
+          <select id="h_alcohol" class="field-input">
+            <option value="">Select…</option>
+            <option>None</option>
+            <option>Occasional</option>
+            <option>Regular</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" onclick="closeModal('historyModal')">Cancel</button>
+      <button class="action-btn primary" onclick="saveMedHistory()">Save History ✓</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =====================
+     MEDICATIONS MODAL
+===================== -->
+<div class="modal-overlay" id="medsModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-icon blue">💊</div>
+        <div>
+          <h3>Current Medications</h3>
+          <p>Medicines you are currently taking</p>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('medsModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="medsListContainer">
+        <div class="field-row" id="medRow0">
+          <div class="field-group">
+            <label class="field-label">MEDICINE NAME</label>
+            <input class="field-input med-name" type="text" placeholder="e.g. Metformin 500mg">
+          </div>
+          <div class="field-group">
+            <label class="field-label">DOSAGE &amp; FREQUENCY</label>
+            <input class="field-input med-dose" type="text" placeholder="e.g. Twice daily after meals">
+          </div>
+        </div>
+      </div>
+      <button class="add-btn" style="margin-top:8px" onclick="addMedRow()">+ Add another medicine</button>
+      <hr class="modal-divider">
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">VITAMINS / SUPPLEMENTS</label>
+          <input id="m_suppl" class="field-input" type="text" placeholder="e.g. Vitamin D, Iron tablets…">
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">NOTES FOR DOCTOR</label>
+          <textarea id="m_notes" class="field-input" placeholder="Any concerns about your current medicines…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" onclick="closeModal('medsModal')">Cancel</button>
+      <button class="action-btn primary" onclick="saveMedications()">Save Medications ✓</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =====================
+     ALLERGIES MODAL
+===================== -->
+<div class="modal-overlay" id="allergyModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-icon red">⚠️</div>
+        <div>
+          <h3>Allergies &amp; Reactions</h3>
+          <p>Known allergies to medicines, foods or substances</p>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('allergyModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">DRUG ALLERGIES — type and press Enter</label>
+          <div class="tag-input-wrap" id="drugAllergyWrap" onclick="document.getElementById('drugAllergyInput').focus()">
+            <input id="drugAllergyInput" class="tag-input-field" placeholder="e.g. Penicillin, Sulfa…"
+                   onkeydown="addTag(event,'drugAllergyWrap','drugAllergyInput')">
+          </div>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">FOOD ALLERGIES — type and press Enter</label>
+          <div class="tag-input-wrap" id="foodAllergyWrap" onclick="document.getElementById('foodAllergyInput').focus()">
+            <input id="foodAllergyInput" class="tag-input-field" placeholder="e.g. Peanuts, Shellfish, Dairy…"
+                   onkeydown="addTag(event,'foodAllergyWrap','foodAllergyInput')">
+          </div>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">ENVIRONMENTAL ALLERGIES — type and press Enter</label>
+          <div class="tag-input-wrap" id="envAllergyWrap" onclick="document.getElementById('envAllergyInput').focus()">
+            <input id="envAllergyInput" class="tag-input-field" placeholder="e.g. Dust, Pollen, Pet hair…"
+                   onkeydown="addTag(event,'envAllergyWrap','envAllergyInput')">
+          </div>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">REACTION DESCRIPTION</label>
+          <textarea id="a_reaction" class="field-input" placeholder="Describe the reaction experienced (e.g. rash, swelling, anaphylaxis)…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" onclick="closeModal('allergyModal')">Cancel</button>
+      <button class="action-btn primary" onclick="saveAllergies()">Save Allergies ✓</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =====================
+     NOTIFICATION PANEL
+===================== -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-panel-header">
+    <h4>🔔 Notifications</h4>
+    <button class="mark-read-btn" onclick="markAllRead()">Mark all read</button>
+  </div>
+
+  <div class="notif-item" onclick="openModal('vitalsModal');closeNotifPanel()">
+    <div class="notif-item-icon" style="background:var(--red-soft)">❤️</div>
+    <div class="notif-item-body">
+      <b>Vitals Not Updated</b>
+      <p>Please enter your latest vitals before your upcoming checkup.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <span class="notif-item-time">Now</span>
+      <span class="notif-unread-dot" id="notifDot1"></span>
+    </div>
+  </div>
+
+  <div class="notif-item" onclick="openModal('historyModal');closeNotifPanel()">
+    <div class="notif-item-icon" style="background:var(--green-soft)">📖</div>
+    <div class="notif-item-body">
+      <b>Medical History Pending</b>
+      <p>Your medical history section is incomplete.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <span class="notif-item-time">5m ago</span>
+      <span class="notif-unread-dot" id="notifDot2"></span>
+    </div>
+  </div>
+
+  <div class="notif-item" onclick="openModal('medsModal');closeNotifPanel()">
+    <div class="notif-item-icon" style="background:var(--blue-soft)">💊</div>
+    <div class="notif-item-body">
+      <b>Medications List Empty</b>
+      <p>Add your current medications for your doctor to review.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <span class="notif-item-time">10m ago</span>
+      <span class="notif-unread-dot" id="notifDot3"></span>
+    </div>
+  </div>
+
+  <div class="notif-item" onclick="openModal('allergyModal');closeNotifPanel()">
+    <div class="notif-item-icon" style="background:var(--orange-soft)">⚠️</div>
+    <div class="notif-item-body">
+      <b>Allergy Info Missing</b>
+      <p>Please list any known allergies before your appointment.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <span class="notif-item-time">15m ago</span>
+      <span class="notif-unread-dot" id="notifDot4"></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+
+
+
+<script>
+
+/* ── PAGE NAVIGATION ─────────────────── */
+
+const pages = ["dashboard","intake","history","reports","summary","doctor","timeline"];
+
+function showPage(page, button) {
+  pages.forEach(p => document.getElementById(p).classList.remove("active"));
+  document.getElementById(page).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+  if (button) button.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (page === "doctor" && typeof window.onEnterDoctorPage === "function") window.onEnterDoctorPage();
+}
+
+
+/* ── TOAST ───────────────────────────── */
+
+function toast(msg) {
+  const b = document.getElementById("toast");
+  b.innerText = msg;
+  b.style.display = "block";
+  clearTimeout(window._toast);
+  window._toast = setTimeout(() => { b.style.display = "none"; }, 2800);
+}
+
+
+/* ── I18N ────────────────────────────── */
+
+const T = {
+  English: {
+    health_title:"Tell us about your health", health_sub:"Complete the sections relevant to your consultation today.",
+    chief_complaint:"Chief Complaint", chief_complaint_sub:"What is your main problem today?",
+    symptoms:"Symptoms", symptoms_sub:"Select or describe your symptoms.",
+    vitals:"Vitals", vitals_sub:"Enter recent measurements if available.",
+    med_history:"Medical History", med_history_sub:"Past illnesses and surgeries.",
+    medications:"Medications", medications_sub:"Current medicines you take.",
+    allergies:"Allergies", allergies_sub:"Known allergies or reactions.",
+    reminder_title:"📋 Health Card Reminder",
+    reminder_sub:"Your checkup is approaching — please update your Vitals, Medical History, Medications & Allergies before you arrive."
+  },
+  "हिंदी": {
+    health_title:"अपने स्वास्थ्य के बारे में बताएं", health_sub:"आज की परामर्श से संबंधित अनुभाग भरें।",
+    chief_complaint:"मुख्य शिकायत", chief_complaint_sub:"आज आपकी मुख्य समस्या क्या है?",
+    symptoms:"लक्षण", symptoms_sub:"अपने लक्षण चुनें या बताएं।",
+    vitals:"महत्वपूर्ण संकेत", vitals_sub:"यदि उपलब्ध हो तो हाल के माप दर्ज करें।",
+    med_history:"चिकित्सा इतिहास", med_history_sub:"पुरानी बीमारियाँ और ऑपरेशन।",
+    medications:"दवाइयाँ", medications_sub:"आप जो वर्तमान दवाएं ले रहे हैं।",
+    allergies:"एलर्जी", allergies_sub:"ज्ञात एलर्जी या प्रतिक्रियाएं।",
+    reminder_title:"📋 स्वास्थ्य कार्ड अनुस्मारक",
+    reminder_sub:"आपकी जाँच नजदीक आ रही है — कृपया आने से पहले अपने महत्वपूर्ण संकेत, चिकित्सा इतिहास, दवाइयाँ और एलर्जी अपडेट करें।"
+  },
+  "বাংলা": {
+    health_title:"আপনার স্বাস্থ্য সম্পর্কে বলুন", health_sub:"আজকের পরামর্শের সাথে সম্পর্কিত বিভাগগুলি পূরণ করুন।",
+    chief_complaint:"প্রধান অভিযোগ", chief_complaint_sub:"আজ আপনার প্রধান সমস্যা কী?",
+    symptoms:"উপসর্গ", symptoms_sub:"আপনার উপসর্গ বেছে নিন বা বর্ণনা করুন।",
+    vitals:"গুরুত্বপূর্ণ লক্ষণ", vitals_sub:"পাওয়া গেলে সাম্প্রতিক পরিমাপ লিখুন।",
+    med_history:"চিকিৎসা ইতিহাস", med_history_sub:"পুরনো অসুস্থতা ও অস্ত্রোপচার।",
+    medications:"ওষুধ", medications_sub:"আপনি বর্তমানে যে ওষুধ খাচ্ছেন।",
+    allergies:"অ্যালার্জি", allergies_sub:"পরিচিত অ্যালার্জি বা প্রতিক্রিয়া।",
+    reminder_title:"📋 স্বাস্থ্য কার্ড অনুস্মারক",
+    reminder_sub:"আপনার চেকআপ কাছে আসছে — দয়া করে আসার আগে আপনার গুরুত্বপূর্ণ লক্ষণ, চিকিৎসা ইতিহাস, ওষুধ ও অ্যালার্জি আপডেট করুন।"
+  }
+};
+
+let currentLang = "English";
+
+function applyTranslations(lang) {
+  const t = T[lang] || T["English"];
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const k = el.getAttribute("data-i18n");
+    if (t[k]) el.textContent = t[k];
+  });
+}
+
+function changeLanguage(btn, lang) {
+  document.querySelectorAll(".lang-group button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  currentLang = lang;
+  applyTranslations(lang);
+  toast("🌐 Language changed to " + lang);
+}
+
+
+/* ── DARK MODE ───────────────────────── */
+
+function toggleDark() {
+  const dark = document.body.classList.toggle("dark");
+  const btn  = document.getElementById("darkToggleBtn");
+  if (btn) btn.textContent = dark ? "☀️" : "🌙";
+  localStorage.setItem("ck_dark", dark ? "1" : "0");
+}
+
+// Restore on load
+(function () {
+  if (localStorage.getItem("ck_dark") === "1") {
+    document.body.classList.add("dark");
+    const b = document.getElementById("darkToggleBtn");
+    if (b) b.textContent = "☀️";
+  }
+})();
+
+
+/* ── MODAL SYSTEM ────────────────────── */
+
+function openModal(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add("open");
+  document.body.style.overflow = "hidden";
+  closeNotifPanel();
+}
+
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// Overlay click closes modal
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("modal-overlay")) closeModal(e.target.id);
+});
+
+// ESC closes modals & panel
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  document.querySelectorAll(".modal-overlay.open").forEach(m => closeModal(m.id));
+  closeNotifPanel();
+});
+
+
+/* ── HEALTH DATA STORE ───────────────── */
+
+const HD = { vitals:{}, history:{}, meds:[], allergies:{} };
+
+
+/* ── SAVE VITALS ─────────────────────── */
+
+function saveVitals() {
+  const g = id => document.getElementById(id)?.value.trim();
+  const d = { temp:g("v_temp"), bp:g("v_bp"), hr:g("v_hr"), spo2:g("v_spo2"),
+              weight:g("v_weight"), height:g("v_height"), glucose:g("v_glucose"),
+              date:g("v_date"), notes:g("v_notes") };
+
+  if (!Object.values(d).some(Boolean)) { toast("⚠️ Fill at least one vital field."); return; }
+  HD.vitals = d;
+
+  const line = [d.temp&&`Temp: ${d.temp}`, d.bp&&`BP: ${d.bp}`, d.hr&&`HR: ${d.hr}`,
+                d.spo2&&`SpO₂: ${d.spo2}`, d.weight&&`Wt: ${d.weight}`].filter(Boolean).join(" · ");
+
+  const hc = document.querySelector("#history .health-card:nth-child(3) p");
+  if (hc) hc.textContent = line || "Recorded";
+
+  markCardSaved("vitalsCardBtn", "Vitals ✓");
+  markNotifRead(1);
+  closeModal("vitalsModal");
+  toast("✅ Vitals saved!");
+  updateRing();
+}
+
+
+/* ── SAVE MEDICAL HISTORY ────────────── */
+
+function saveMedHistory() {
+  const illness = document.getElementById("h_illness")?.value.trim();
+  const surgery = document.getElementById("h_surgery")?.value.trim();
+  const smoke   = document.getElementById("h_smoke")?.value;
+  const alcohol = document.getElementById("h_alcohol")?.value;
+  const chronic = [...(document.getElementById("h_chronic")?.selectedOptions||[])].map(o=>o.value);
+
+  if (!illness && !surgery && chronic.length===0) { toast("⚠️ Fill at least one history field."); return; }
+  HD.history = { illness, surgery, chronic, smoke, alcohol };
+
+  const hc = document.querySelector("#history .health-card:nth-child(4) p");
+  if (hc) hc.textContent = illness || chronic.join(", ") || "Recorded";
+
+  markCardSaved("historyCardBtn", "History ✓");
+  markNotifRead(2);
+  closeModal("historyModal");
+  toast("✅ Medical history saved!");
+  updateRing();
+}
+
+
+/* ── SAVE MEDICATIONS ────────────────── */
+
+let _medRow = 1;
+
+function addMedRow() {
+  const c = document.getElementById("medsListContainer");
+  const r = document.createElement("div");
+  r.className = "field-row";
+  r.innerHTML = `
+    <div class="field-group">
+      <label class="field-label">MEDICINE NAME</label>
+      <input class="field-input med-name" type="text" placeholder="e.g. Amlodipine 5mg">
+    </div>
+    <div class="field-group">
+      <label class="field-label">DOSAGE &amp; FREQUENCY</label>
+      <input class="field-input med-dose" type="text" placeholder="e.g. Once daily at night">
+    </div>`;
+  c.appendChild(r);
+  r.querySelector(".med-name").focus();
+  _medRow++;
+}
+
+function saveMedications() {
+  const names = [...document.querySelectorAll(".med-name")].map(i=>i.value.trim()).filter(Boolean);
+  const doses = [...document.querySelectorAll(".med-dose")].map(i=>i.value.trim());
+  const suppl = document.getElementById("m_suppl")?.value.trim();
+  if (!names.length && !suppl) { toast("⚠️ Add at least one medicine."); return; }
+
+  HD.meds = names.map((n,i)=>({name:n, dose:doses[i]||""}));
+  if (suppl) HD.meds.push({name:suppl, dose:"Supplement"});
+
+  const hc = document.querySelector("#history .health-card:nth-child(5) p");
+  if (hc) hc.textContent = names.slice(0,2).join(", ")+(names.length>2?` +${names.length-2} more`:"") || "Recorded";
+
+  markCardSaved("medsCardBtn", "Meds ✓");
+  markNotifRead(3);
+  closeModal("medsModal");
+  toast("✅ Medications saved!");
+  updateRing();
+}
+
+
+/* ── SAVE ALLERGIES (chip tags) ──────── */
+
+function addTag(e, wrapId, inputId) {
+  if (e.key!=="Enter" && e.key!==",") return;
+  e.preventDefault();
+  const input = document.getElementById(inputId);
+  const val   = input.value.trim().replace(/,$/,"");
+  if (!val) return;
+  const chip = document.createElement("span");
+  chip.className = "tag-chip";
+  chip.innerHTML = `${val}<button onclick="this.parentElement.remove()" type="button">✕</button>`;
+  document.getElementById(wrapId).insertBefore(chip, input);
+  input.value = "";
+}
+
+function _tags(wrapId) {
+  return [...document.querySelectorAll(`#${wrapId} .tag-chip`)].map(c=>c.textContent.replace("✕","").trim());
+}
+
+function saveAllergies() {
+  const drug = _tags("drugAllergyWrap");
+  const food = _tags("foodAllergyWrap");
+  const env  = _tags("envAllergyWrap");
+  const rxn  = document.getElementById("a_reaction")?.value.trim();
+  if (!drug.length && !food.length && !env.length) { toast("⚠️ Type an allergy and press Enter to add."); return; }
+
+  HD.allergies = {drug, food, env, reaction:rxn};
+
+  const hc = document.querySelector("#history .health-card:nth-child(6) p");
+  if (hc) { const all=[...drug,...food,...env]; hc.textContent=all.slice(0,3).join(", ")+(all.length>3?` +${all.length-3} more`:""); }
+
+  markCardSaved("allergyCardBtn", "Allergies ✓");
+  markNotifRead(4);
+  closeModal("allergyModal");
+  toast("✅ Allergies saved!");
+  updateRing();
+}
+
+
+/* ── CARD SAVED STATE ────────────────── */
+
+function markCardSaved(btnId, label) {
+  const btn  = document.getElementById(btnId);
+  const card = btn?.closest(".health-card");
+  if (card) card.classList.add("saved");
+  if (btn)  btn.textContent = "✓ " + label;
+}
+
+
+/* ── PROGRESS RING ───────────────────── */
+
+function updateRing() {
+  const done = [
+    Object.values(HD.vitals).some(Boolean),
+    !!(HD.history.illness) || HD.history.chronic?.length > 0,
+    HD.meds.length > 0,
+    (HD.allergies.drug?.length||0)+(HD.allergies.food?.length||0)+(HD.allergies.env?.length||0) > 0,
+  ].filter(Boolean).length;
+
+  const total = Math.min(2 + done, 5);
+  const pct   = Math.round(total / 5 * 100);
+  const C     = 2 * Math.PI * 36;
+  const off   = C - pct / 100 * C;
+
+  const rf = document.querySelector(".ring-fill");
+  const rl = document.querySelector(".ring-label");
+  const rs = document.querySelector(".progress-sub");
+  if (rf) rf.style.strokeDashoffset = off;
+  if (rl) rl.textContent = pct + "%";
+  if (rs) rs.textContent = `${total} of 5 steps completed`;
+  const sv = document.querySelector(".stat-card.c-teal .stat-val");
+  if (sv) sv.textContent = pct + "%";
+}
+
+
+/* ── REMINDER BANNER ─────────────────── */
+
+function dismissReminder() {
+  const b = document.getElementById("reminderBanner");
+  if (b) { b.classList.add("hidden"); sessionStorage.setItem("ck_rdism","1"); }
+}
+
+(function () {
+  if (sessionStorage.getItem("ck_rdism") === "1") {
+    const b = document.getElementById("reminderBanner");
+    if (b) b.classList.add("hidden");
+  } else {
+    // Auto toast reminder at 45 sec
+    setTimeout(() => toast("📋 Reminder: Update your health card before your checkup!"), 45000);
+  }
+})();
+
+
+/* ── NOTIFICATION PANEL ──────────────── */
+
+let _unread = 4;
+
+function openReminderPanel() {
+  document.getElementById("notifPanel")?.classList.toggle("open");
+}
+
+function closeNotifPanel() {
+  document.getElementById("notifPanel")?.classList.remove("open");
+}
+
+function markNotifRead(n) {
+  const d = document.getElementById("notifDot" + n);
+  if (d) d.style.display = "none";
+  _unread = Math.max(0, _unread - 1);
+  _syncBadge();
+}
+
+function markAllRead() {
+  [1,2,3,4].forEach(n => { const d=document.getElementById("notifDot"+n); if(d) d.style.display="none"; });
+  _unread = 0; _syncBadge();
+  toast("All notifications marked as read.");
+}
+
+function _syncBadge() {
+  const b = document.getElementById("notifDot");
+  if (b) b.style.display = _unread > 0 ? "block" : "none";
+}
+
+// Close panel on outside click
+document.addEventListener("click", function(e) {
+  const panel = document.getElementById("notifPanel");
+  const btn   = document.getElementById("notifBtn");
+  if (panel && btn && !panel.contains(e.target) && !btn.contains(e.target)) closeNotifPanel();
+});
+
+
+/* ── VOICE ───────────────────────────── */
+
+function startListening() {
+  const text = document.getElementById("voiceText");
+  const mic  = document.getElementById("heroMic");
+  text.innerText = "Listening…";
+  mic.classList.add("listening");
+  setTimeout(() => { text.innerText = "Voice captured ✓"; mic.classList.remove("listening"); toast("Demo voice interaction completed."); }, 1800);
+}
+
+function voiceInput() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { toast("Voice recognition not supported in this browser."); return; }
+  const r = new SR(); r.lang = "en-IN";
+  document.getElementById("voiceStatus").innerText = "🎙 Listening…";
+  r.onresult = e => { document.getElementById("symptom").value = e.results[0][0].transcript; document.getElementById("voiceStatus").innerText = "Voice captured ✓"; };
+  r.onerror  = () => { document.getElementById("voiceStatus").innerText = "Voice capture unavailable."; };
+  r.start();
+}
+
+
+/* ── SAVE SYMPTOM ────────────────────── */
+
+function saveSymptom() {
+  const v = document.getElementById("symptom").value.trim();
+  if (!v) { toast("Please describe your main problem first."); return; }
+  ["summaryComplaint","fullComplaint","historyComplaint"].forEach(id => {
+    const el = document.getElementById(id); if (el) el.innerText = v;
+  });
+  toast("Patient response saved successfully.");
+}
+
+
+/* ── FILE UPLOAD ─────────────────────── */
+
+function fileSelected(input) {
+  if (input.files.length > 0) toast(input.files.length + " document(s) selected.");
+}
+
+
+/* ── CONSENT ─────────────────────────── */
+
+function giveConsent() { toast("Consent recorded for this session."); }
+
+
+/* ── ROLE SELECTOR ───────────────────── */
+
+function selectRole(btn, role) {
+  document.querySelectorAll(".role-pill").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+
+/* ── EMERGENCY ───────────────────────── */
+
+function emergencyHelp() { toast("Emergency workflow activated. Seek immediate professional help."); }
+
+
+/* ── PRINT ───────────────────────────── */
+
+function printSummary() {
+  const cmp     = document.getElementById("fullComplaint")?.innerText;
+  const v       = HD.vitals;
+  const vline   = [v.temp&&`Temp: ${v.temp}`, v.bp&&`BP: ${v.bp}`, v.hr&&`HR: ${v.hr}`, v.spo2&&`SpO₂: ${v.spo2}`, v.weight&&`Wt: ${v.weight}`].filter(Boolean).join(", ") || "Not entered";
+  const meds    = HD.meds.map(m=>m.name).join(", ") || "None listed";
+  const allg    = [...(HD.allergies.drug||[]),...(HD.allergies.food||[]),...(HD.allergies.env||[])].join(", ") || "None listed";
+  const hist    = HD.history.illness || HD.history.chronic?.join(", ") || "Pending verification";
+  const pw = window.open("","_blank");
+  if (!pw) { toast("Allow pop-ups to print."); return; }
+  pw.document.write(`<!DOCTYPE html><html><head><title>ChikitsaKendra AI Summary</title>
+  <style>body{font-family:Segoe UI,Arial,sans-serif;padding:48px;color:#0f2d3d;max-width:720px;margin:0 auto}
+  h1{color:#008f7e;font-size:26px;margin-bottom:4px}
+  .sub{color:#6b8d99;font-size:13px;margin-bottom:28px}
+  table{width:100%;border-collapse:collapse;margin-top:20px}
+  td{border:1px solid #d4e8e5;padding:13px 16px;font-size:13px;vertical-align:top;line-height:1.55}
+  td:first-child{width:26%;font-weight:700;color:#008f7e;background:#f0fdf9}
+  .warn{margin-top:24px;padding:14px;background:#fef3c7;border-left:4px solid #f59e0b;font-size:12px;color:#92400e;border-radius:4px}
+  .foot{margin-top:36px;font-size:11px;color:#6b8d99;border-top:1px solid #d4e8e5;padding-top:14px;display:flex;justify-content:space-between}
+  </style></head><body>
+  <h1>ChikitsaKendra AI</h1>
+  <div class="sub">AI Clinical Summary — Draft for Doctor Review · ${new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"})}</div>
+  <table>
+    <tr><td>Chief Complaint</td><td>${cmp}</td></tr>
+    <tr><td>Vitals</td><td>${vline}</td></tr>
+    <tr><td>Medical History</td><td>${hist}</td></tr>
+    <tr><td>Medications</td><td>${meds}</td></tr>
+    <tr><td>Allergies</td><td>${allg}</td></tr>
+    <tr><td>AI Observation</td><td>Pattern requires professional assessment. No diagnosis established by this interface.</td></tr>
+    <tr><td>Red Flags</td><td style="color:#10b981;font-weight:700">✓ No immediate red flags entered.</td></tr>
+  </table>
+  <div class="warn">⚠ This AI-generated summary must be reviewed and verified by a qualified healthcare professional before clinical use.</div>
+  <div class="foot"><span>© 2026 ChikitsaKendra AI · Smart Clinical Intake</span><span>🔐 Encrypted · Human-in-the-loop</span></div>
+  </body></html>`);
+  pw.document.close(); pw.print();
+}
+
+function showPage(page, button) {
+  pages.forEach(p => document.getElementById(p).classList.remove("active"));
+  document.getElementById(page).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+  if (button) button.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (page === "doctor" && typeof window.onEnterDoctorPage === "function") {
+    window.onEnterDoctorPage();
+  }
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function toast(message) {
+  const box = document.getElementById("toast");
+  box.innerText = message;
+  box.style.display = "block";
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => { box.style.display = "none"; }, 2800);
+}
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+function changeLanguage(button, language) {
+  document.querySelectorAll(".lang-group button").forEach(b => b.classList.remove("active"));
+  button.classList.add("active");
+  toast("Interface language: " + language);
+}
+
+
+/* =========================
+   VOICE ANIMATION
+========================= */
+
+function startListening() {
+  const text = document.getElementById("voiceText");
+  const mic  = document.getElementById("heroMic");
+  text.innerText = "Listening…";
+  mic.classList.add("listening");
+  setTimeout(() => {
+    text.innerText = "Voice captured ✓";
+    mic.classList.remove("listening");
+    toast("Demo voice interaction completed.");
+  }, 1800);
+}
+
+
+/* =========================
+   BROWSER VOICE INPUT
+========================= */
+
+function voiceInput() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    toast("Voice recognition is not supported by this browser.");
+    return;
+  }
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-IN";
+  document.getElementById("voiceStatus").innerText = "🎙 Listening…";
+  recognition.onresult = function(event) {
+    const text = event.results[0][0].transcript;
+    document.getElementById("symptom").value = text;
+    document.getElementById("voiceStatus").innerText = "Voice captured ✓";
+  };
+  recognition.onerror = function() {
+    document.getElementById("voiceStatus").innerText = "Voice capture unavailable.";
+  };
+  recognition.start();
+}
+
+
+/* =========================
+   SAVE SYMPTOM
+========================= */
+
+function saveSymptom() {
+  const value = document.getElementById("symptom").value.trim();
+  if (!value) { toast("Please describe your main problem first."); return; }
+  document.getElementById("summaryComplaint").innerText = value;
+  document.getElementById("fullComplaint").innerText = value;
+  document.getElementById("historyComplaint").innerText = value;
+  toast("Patient response saved successfully.");
+}
+
+
+/* =========================
+   FILE UPLOAD
+========================= */
+
+function fileSelected(input) {
+  const count = input.files.length;
+  if (count > 0) toast(count + " document(s) selected.");
+}
+
+
+/* =========================
+   CONSENT
+========================= */
+
+function giveConsent() {
+  toast("Consent recorded for this session.");
+}
+
+
+/* =========================
+   ROLE SELECTOR
+========================= */
+
+function selectRole(btn, role) {
+  document.querySelectorAll('.role-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+
+/* =========================
+   EMERGENCY
+========================= */
+
+function emergencyHelp() {
+  toast("Emergency workflow activated. Seek immediate professional help.");
+}
+
+
+/* =========================
+   PRINT / DOWNLOAD
+========================= */
+
+function printSummary() {
+  const complaint = document.getElementById("fullComplaint").innerText;
+  const pw = window.open("", "_blank");
+  if (!pw) { toast("Please allow pop-ups to print."); return; }
+  pw.document.write(`
+    <!DOCTYPE html><html><head><title>ChikitsaKendra AI Summary</title>
+    <style>
+      body{font-family:Inter,Arial,sans-serif;padding:48px;color:#0f2d3d;max-width:700px;margin:0 auto;}
+      h1{color:#008f7e;font-size:24px;margin-bottom:4px;}
+      .sub{color:#6b8d99;font-size:13px;margin-bottom:28px;}
+      table{width:100%;border-collapse:collapse;margin-top:20px;}
+      td{border:1px solid #d4e8e5;padding:12px 16px;font-size:13px;vertical-align:top;}
+      td:first-child{width:26%;font-weight:700;color:#008f7e;background:#f0fdf9;}
+      .warn{margin-top:20px;padding:14px;background:#fef3c7;border-left:4px solid #f59e0b;font-size:12px;color:#92400e;border-radius:4px;}
+      .footer{margin-top:32px;font-size:11px;color:#6b8d99;border-top:1px solid #d4e8e5;padding-top:12px;}
+    </style></head><body>
+    <h1>ChikitsaKendra AI</h1>
+    <div class="sub">AI Clinical Summary — Draft for Doctor Review</div>
+    <table>
+      <tr><td>Chief Complaint</td><td>${complaint}</td></tr>
+      <tr><td>History</td><td>Patient-provided information requires professional clarification.</td></tr>
+      <tr><td>Symptoms</td><td>Patient-entered symptoms pending structured review.</td></tr>
+      <tr><td>Vitals</td><td>Not available.</td></tr>
+      <tr><td>Medical History</td><td>Pending verification.</td></tr>
+      <tr><td>Medications &amp; Allergies</td><td>Must be confirmed by clinician.</td></tr>
+    </table>
+    <div class="warn">⚠ This AI-generated summary must be reviewed and verified by a qualified healthcare professional before clinical use.</div>
+    <div class="footer">Generated by ChikitsaKendra AI · Smart Clinical Intake · © 2026</div>
+    <script src="/i18n.js"><\/script>
+    <script>
+      window.addEventListener("load", () => {
+        window.applyTranslations(localStorage.getItem("chikitsaPreferredLanguage") || "English");
+        window.print();
+      });
+    <\/script>
+    </body></html>`);
+  pw.document.close();
+}
+
+</script>
+
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
