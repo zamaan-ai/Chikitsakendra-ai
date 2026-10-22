@@ -1,4 +1,13 @@
-# ChikitsaKendra AI
+🏥 **ChikitsaKendra AI** — Smart, Secure, and Multilingual Clinical Intake Platform
+
+- 🔒 **Zero-Trust Patient Data**: AES-256-GCM encrypted PII & SHA-256 session tokens
+- 🎙️ **Real-Time Voice Streaming**: In-browser audio streaming over WebSockets
+- 🩺 **Clinician Review Center**: Interactive queue with vitals, diagnostic reports & audio dossier
+- 🌐 **Multilingual Ready**: Instant switching between English, Hindi, and Bengali
+- 🐳 **Production Dockerized**: Full MySQL 8.4 + Node.js 22 container stack with automated tests
+
+
+  # ChikitsaKendra AI
 
 A full-stack patient intake and doctor-review platform built with **Node.js, Express and MySQL**. Patients start an anonymous session, record consent, describe symptoms, upload medical reports and send their case to a clinician review queue. Doctors sign in and work through that queue. Sensitive fields are encrypted at rest and every important action is audit-logged.
 
