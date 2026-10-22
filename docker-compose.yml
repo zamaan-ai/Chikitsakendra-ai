@@ -1,0 +1,49 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: chikitsakendra-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_change_me
+      MYSQL_DATABASE: chikitsakendra
+      MYSQL_USER: chikitsa_app
+      MYSQL_PASSWORD: change_me
+    ports:
+      - "3306:3306"
+    volumes:
+      - chikitsa_mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "chikitsa_app", "-pchange_me"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    container_name: chikitsakendra-app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: chikitsakendra
+      DB_USER: chikitsa_app
+      DB_PASSWORD: change_me
+      UPLOAD_DIR: /app/uploads
+    # JWT_SECRET, ENCRYPTION_KEY, CORS_ALLOWED_ORIGINS, and rate-limit tuning are
+    # read from .env (see .env.example) rather than hardcoded here, since they're
+    # secrets that must be unique per deployment and never committed to git.
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./uploads:/app/uploads
+
+volumes:
+  chikitsa_mysql_data:

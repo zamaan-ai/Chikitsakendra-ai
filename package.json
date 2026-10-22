@@ -1,0 +1,35 @@
+{
+  "name": "chikitsakendra-ai-mysql",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ChikitsaKendra AI - Full-stack healthcare platform with audio streaming and cloud storage",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node tests/test-everything.js",
+    "test:ws": "node tests/test-websocket.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1129.0",
+    "@aws-sdk/s3-request-presigner": "^3.1129.0",
+    "@azure/storage-blob": "^12.33.0",
+    "@google-cloud/storage": "^7.22.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.4.1",
+    "express-validator": "^7.2.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "mysql2": "^3.14.4"
+  },
+  "devDependencies": {
+    "axios": "^1.20.0",
+    "form-data": "^4.0.6",
+    "nodemon": "^3.1.14",
+    "ws": "^8.21.3"
+  }
+}
